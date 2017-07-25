@@ -3,6 +3,6 @@ class NNWithScaler:
         self.network = network
         self.scaler = scaler
 
-    def predict(X):
+    def predict(self, X):
         X = self.scaler.transform(X)
         return self.network.predict(X)

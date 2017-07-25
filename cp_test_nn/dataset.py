@@ -5,7 +5,7 @@ import sys
 
 import json_lines
 
-from cp_test_nn.util import split_re
+from cp_test_nn.tokenizer import tokenize_log
 
 TOP_TOKENS = 500
 
@@ -33,7 +33,7 @@ def create_dataset(fails_file, tokens_file, dataset_file):
                 d.write(',\n')
             sys.stderr.write('{i}\n'.format(i=i))
             i += 1
-            tokenized_log = split_re.split(item['log'])
+            tokenized_log = tokenize_log(item['log'])
             features_item = []
             for token in tokens:
                 features_item.append(tokenized_log.count(token))
