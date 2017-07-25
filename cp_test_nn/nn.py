@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler
 
 class NNWithScaler:
     def __init__(self):
-        self.network = MLPClassifier(hidden_layer_sizes=(200, 200))
+        self.network = MLPClassifier(hidden_layer_sizes=(500, 500))
         self.scaler = StandardScaler()
 
     def predict(self, X):

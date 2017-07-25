@@ -7,7 +7,7 @@ import json_lines
 
 from cp_test_nn.tokenizer import tokenize_log
 
-TOP_TOKENS = 500
+TOP_TOKENS = 4000
 
 def get_top_tokens(tokens_file, top_tokens):
     with open(tokens_file) as f:
