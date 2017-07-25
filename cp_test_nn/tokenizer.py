@@ -21,7 +21,6 @@ def unify_token(t):
 
     return t
 
-token_dict = collections.defaultdict(int)
 
 def tokenize_log(log):
     split = split_re.split(log)
@@ -32,7 +31,10 @@ def tokenize_log(log):
             result.append(unified)
     return result
 
+
 def create_token_dict(fails_file, token_dict_file):
+    token_dict = collections.defaultdict(int)
+
     with json_lines.open(fails_file) as f:
         for item in f:
             for t in tokenize_log(item['log']):
