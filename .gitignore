@@ -1,0 +1,10 @@
+.ropeproject
+*.swp
+*.swo
+*.jsonl
+dataset
+dataset_cv
+fails
+fails_cv
+tokens
+__pycache__/
