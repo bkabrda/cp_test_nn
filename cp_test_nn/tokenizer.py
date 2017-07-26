@@ -5,8 +5,8 @@ import re
 
 import json_lines
 
-from cp_test_nn.util import (num_re, uuid_re, split_re,
-                             UUID_TOKEN, NUM_TOKEN)
+from cp_test_nn.util import (num_re, uuid_re, split_re, ws_certs_re,
+                             UUID_TOKEN, NUM_TOKEN, WS_CERTS_TOKEN)
 
 def unify_token(t):
     if len(t) < 4:
@@ -18,6 +18,8 @@ def unify_token(t):
         return NUM_TOKEN
     elif uuid_re.match(t):
         return UUID_TOKEN
+    elif ws_certs_re.match(t):
+        return WS_CERTS_TOKEN
 
     return t
 
