@@ -14,9 +14,9 @@ A neural network that can easily be trained to recognize whether a CI fail is a 
 When you run `cp_test_nn`, you'll see bunch of numbers printed - these are progress of creating feature sets from the learning data set (`2017-06-21-2017-07-21-cockpit-test-data.jsonl`) and from validation set (`2017-06-22-2017-07-22-cockpit-test-data.jsonl`). When this is done (this might take couple minutes), the program will output something like:
 
 ```
-Success rate:  0.9299839657936932
-False positives:  0.02244788882950294
-False negatives:  0.04756814537680385
+Success rate:  0.9759486905398183
+False positives:  0.009086050240513094
+False negatives:  0.014965259219668627
 ```
 
-Your numbers may vary slightly due to random initialization. Generally, success rate on the validation dataset above `0.9` is good - this shows that the approach is sound. The program is still in a very early phase and it should be possible to improve on this.
+Your numbers may vary slightly due to random initialization. Generally, success rate on the validation dataset above `0.95` is good - this shows that the approach is sound. The program is still in a very early phase and it should be possible to improve on this.
