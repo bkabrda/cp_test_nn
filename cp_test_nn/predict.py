@@ -1,17 +1,10 @@
-import json
-
-from cp_test_nn.process import process
+from cp_test_nn import process
 from cp_test_nn.dataset import create_dataset
-from cp_test_nn.util import TOKEN_DICT_FILE, FAILS_CV_FILE, DATASET_CV_FILE
 
-def test_cv_success_rate(nn, cv_file):
-    process(cv_file, FAILS_CV_FILE)
-    create_dataset(FAILS_CV_FILE, TOKEN_DICT_FILE, DATASET_CV_FILE)
-    X, y = [], []
-    with open(DATASET_CV_FILE) as f:
-        cv = json.load(f)
-        X = cv['dataset']
-        y = cv['results']
+def test_cv_success_rate(nn, tokens, cv_file):
+    data = create_dataset(process.failures(cv_file), tokens)
+    X = data['dataset']
+    y = data['results']
 
     successes = 0
     false_negatives = 0

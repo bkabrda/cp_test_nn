@@ -1,12 +1,5 @@
 import re
 
-FAILS_FILE = 'fails'
-TOKEN_DICT_FILE = 'tokens'
-DATASET_FILE = 'dataset'
-
-FAILS_CV_FILE = 'fails_cv'
-DATASET_CV_FILE = 'dataset_cv'
-
 SPECIAL_TOKEN_PREFIX = 'SpecialToken:'
 NUM_TOKEN = SPECIAL_TOKEN_PREFIX + 'Number'
 PERCENT_TOKEN = SPECIAL_TOKEN_PREFIX + 'Percent'
