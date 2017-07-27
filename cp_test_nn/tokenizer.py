@@ -36,12 +36,16 @@ def create_token_dict(fails_file, token_dict_file):
     #  adding not only tokens, but also contexts
     token_dict = collections.defaultdict(int)
     contexts = set()
+    tests = set()
 
     with json_lines.open(fails_file) as f:
         for item in f:
             for t in tokenize_log(item['log']):
                 token_dict[t] += 1
             contexts.add(item['context'])
+            tests.add(item['test'])
 
     with open(token_dict_file, 'w') as f:
-        json.dump({'tokens': token_dict, 'contexts': sorted(contexts)}, f)
+        json.dump({'tokens': token_dict,
+                   'contexts': sorted(contexts),
+                   'tests': sorted(tests)}, f)
