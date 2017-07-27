@@ -20,6 +20,8 @@ uuid_re = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]
 ws_certs_re = re.compile(r'^/etc/cockpit/ws-certs.d/0-self-signed.cert:[\w/\+]+$')
 time_re = re.compile(r'\d\d:\d\d:\d\d')
 split_re = re.compile(r'[\s]')
+py_exception_re = re.compile(r'(Traceback \(most recent call last\):\n( .*\n)+([^\n]+))',
+                             re.MULTILINE)
 
 token_regexes = {
     NUM_TOKEN: num_re,

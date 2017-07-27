@@ -5,7 +5,7 @@ import re
 
 import json_lines
 
-from cp_test_nn.util import token_regexes, split_re
+from cp_test_nn.util import token_regexes, split_re, py_exception_re
 
 def unify_token(t):
     if len(t) < 4:
@@ -22,8 +22,11 @@ def unify_token(t):
 
 
 def tokenize_log(log):
+    py_exceptions = py_exception_re.findall(log)
+    log = py_exception_re.sub('', log)
+    result = [e[0] for e in py_exceptions]
+
     split = split_re.split(log)
-    result = []
     for i in split:
         unified = unify_token(i)
         if unified is not None:
