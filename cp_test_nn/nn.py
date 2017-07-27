@@ -1,4 +1,5 @@
 import json
+import pickle
 
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
@@ -22,3 +23,12 @@ class NNWithScaler:
         self.scaler.fit(X)
         X = self.scaler.transform(X)
         self.network.fit(X, y)
+
+    def serialize(self, path):
+        with open(path, 'wb') as f:
+            pickle.dump(self, f)
+
+    @classmethod
+    def load(cls, path):
+        with open(path, 'rb') as f:
+            return pickle.load(f)
