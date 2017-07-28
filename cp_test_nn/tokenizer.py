@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 import collections
+import logging
 
 from cp_test_nn.util import token_regexes, split_re, py_exception_re
+
+logger = logging.getLogger(__name__)
+
 
 def unify_token(t):
     if len(t) < 4:
@@ -31,6 +35,7 @@ def tokenize_log(log):
 
 
 def create_token_dict(items):
+    logger.info('Creating token dictionary ...')
     # TODO: rename from "tokenizer" and "create_token_dict", since we're now
     #  adding not only tokens, but also contexts
     token_dict = collections.defaultdict(int)
@@ -42,6 +47,9 @@ def create_token_dict(items):
             token_dict[t] += 1
         contexts.add(item['context'])
         tests.add(item['test'])
+
+    logger.info('Found %d tokens, %d contexts and %d tests names',
+                len(token_dict), len(contexts), len(tests))
 
     tokens = {
         'tokens': token_dict,

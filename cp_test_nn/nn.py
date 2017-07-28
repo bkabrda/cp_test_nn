@@ -1,5 +1,9 @@
+import logging
+
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
+
+logger = logging.getLogger(__name__)
 
 class NNWithScaler:
     def __init__(self):
@@ -15,6 +19,10 @@ class NNWithScaler:
         X = data['dataset']
         y = data['results']
 
+        logger.info('Training neural network with dataset of %d samples', len(X))
+        logger.debug('Scaling features')
         self.scaler.fit(X)
         X = self.scaler.transform(X)
+        logger.debug('Fitting neural network to dataset')
         self.network.fit(X, y)
+        logger.info('Neural network was successfuly trained')

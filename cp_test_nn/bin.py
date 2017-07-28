@@ -1,6 +1,8 @@
 import argparse
+import logging
 import pickle
 
+from cp_test_nn import logging_setup
 from cp_test_nn import process
 from cp_test_nn.tokenizer import create_token_dict
 from cp_test_nn.create_network import create_network
@@ -13,7 +15,13 @@ def main():
     group.add_argument('-l', '--load', help='Load serialized neural network from given file')
     parser.add_argument('-c', '--cvset', help='Path to cross validation set of data')
     parser.add_argument('-s', '--serialize', help='Serialize trained neural network to given file')
+    parser.add_argument('-q', '--quiet', help='Disable all logging output', action='store_true')
+    parser.add_argument('-v', '--verbose', help='Provide verbose logging output',
+                        action='store_true')
     args = parser.parse_args()
+
+    if not args.quiet:
+        logging_setup(logging.DEBUG if args.verbose else logging.INFO)
 
     if args.load:
         with open(args.load, 'rb') as f:

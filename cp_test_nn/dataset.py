@@ -1,12 +1,15 @@
 #!/usr/bin/python3
+import logging
 import operator
-import sys
 
 from cp_test_nn.tokenizer import tokenize_log
+
+logger = logging.getLogger(__name__)
 
 TOP_TOKENS = 9000
 
 def filter_token_data(loaded, top_tokens):
+    logger.debug('Filtering top %d tokens', top_tokens)
     tokens = loaded.get('tokens', {})
 
     usetokens = []
@@ -22,22 +25,22 @@ def filter_token_data(loaded, top_tokens):
     }
 
 def create_dataset(items, tokens):
+    logger.info('Creating dataset')
     token_data = filter_token_data(tokens, TOP_TOKENS)
     results = []
     dataset = []
 
-    i = 0
-    for item in items:
-        sys.stderr.write('{i}\n'.format(i=i))
-        i += 1
+    for i, item in enumerate(items):
+        logger.debug('Creating dataset item %d', i + 1)
         tokenized_log = tokenize_log(item['log'])
         features_item = []
         # firstly output features for contexts
         for context in token_data['contexts']:
             features_item.append(int(item['context'] == context))
+        # secondly output features for tests
         for test in token_data['tests']:
             features_item.append(int(item['test'] == test))
-        # secondly output features for tokens
+        # thirdly output features for tokens
         for token in token_data['tokens']:
             features_item.append(tokenized_log.count(token))
         dataset.append(features_item)
@@ -47,6 +50,7 @@ def create_dataset(items, tokens):
     # with open('dataset', 'wb') as f:
     #     json.dump({ "dataset": dataset, "results": results }, f)
 
+    logger.info('Created dataset with %d items', len(dataset))
     return {
         "dataset": dataset,
         "results": results
