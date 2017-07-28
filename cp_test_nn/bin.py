@@ -1,8 +1,10 @@
 import argparse
+import pickle
 
+from cp_test_nn import process
+from cp_test_nn.tokenizer import create_token_dict
 from cp_test_nn.create_network import create_network
 from cp_test_nn.predict import test_cv_success_rate
-from cp_test_nn.nn import NNWithScaler
 
 def main():
     parser = argparse.ArgumentParser(prog='cp_test_nn')
@@ -14,12 +16,15 @@ def main():
     args = parser.parse_args()
 
     if args.load:
-        network = NNWithScaler.load(args.load)
+        with open(args.load, 'rb') as f:
+            (tokens, network) = pickle.load(f)
     else:
-        network = create_network(args.trainingset)
+        tokens = create_token_dict(process.failures(args.trainingset))
+        network = create_network(args.trainingset, tokens)
 
     if args.serialize:
-        network.serialize(args.serialize)
+        with open(args.serialize, 'wb') as f:
+            pickle.dump((tokens, network), f)
 
     if args.cvset:
-        test_cv_success_rate(network, args.cvset)
+        test_cv_success_rate(network, tokens, args.cvset)
