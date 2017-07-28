@@ -20,6 +20,6 @@ False negatives: 0.02216624685138539
 Unsure: 0.038790931989924435
 ```
 
-Your numbers may vary slightly due to random initialization. Generally, success rate on the validation dataset above `0.9` is good - this shows that the approach is sound. The program is still in a very early phase and it should be possible to improve on this. Note that the success rate is artifically decreased by our choice to increase threshold that we consider safe to classify an example (it's `0.75`). This can be changed via the `-r <threshold>` commandline switch.
+Your numbers may vary slightly due to random initialization. Generally, success rate on the validation dataset above `0.9` is good - this shows that the approach is sound. The program is still in a very early phase and it should be possible to improve on this. Note that the success rate is artifically decreased by our choice to increase threshold (it's currently `0.75`) that we consider safe to classify an example as FLAKE or NOT FLAKE. If the probabilities are below this threshold, we classify it as UNSURE. This can be changed via the `-r <threshold>` commandline switch (specifically, `-r 0.5` will yield no UNSURE and classify all examples as FLAKE or NOT FLAKE).
 
 The `-s serialized` will make the trained neural network serialize to file called `serialized`. On future invocations, you can use `-l serialized` instead of `-t ...` to load the serialized neural network instead of training it again.
