@@ -6,14 +6,14 @@ from cp_test_nn import logging_setup
 from cp_test_nn import process
 from cp_test_nn.tokenizer import create_token_dict
 from cp_test_nn.create_network import create_network
-from cp_test_nn.predict import test_cv_success_rate
+from cp_test_nn.predict import predict
 
 def main():
     parser = argparse.ArgumentParser(prog='cp_test_nn')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-t', '--trainingset', help='Path to training set of data')
     group.add_argument('-l', '--load', help='Load serialized neural network from given file')
-    parser.add_argument('-c', '--cvset', help='Path to cross validation set of data')
+    parser.add_argument('-p', '--predict', help='Path to prediction or cross validation set of data')
     parser.add_argument('-s', '--serialize', help='Serialize trained neural network to given file')
     parser.add_argument('-q', '--quiet', help='Disable all logging output', action='store_true')
     parser.add_argument('-v', '--verbose', help='Provide verbose logging output',
@@ -34,5 +34,5 @@ def main():
         with open(args.serialize, 'wb') as f:
             pickle.dump((tokens, network), f)
 
-    if args.cvset:
-        test_cv_success_rate(network, tokens, args.cvset)
+    if args.predict:
+        predict(network, tokens, args.predict)

@@ -29,6 +29,7 @@ def create_dataset(items, tokens):
     token_data = filter_token_data(tokens, TOP_TOKENS)
     results = []
     dataset = []
+    original = []
 
     for i, item in enumerate(items):
         logger.debug('Creating dataset item %d', i + 1)
@@ -44,7 +45,12 @@ def create_dataset(items, tokens):
         for token in token_data['tokens']:
             features_item.append(tokenized_log.count(token))
         dataset.append(features_item)
-        results.append(int(item['head']))
+        # When "head" is none it's unknown, lets use -1 for that
+        result = item['head']
+        if result is None:
+            result = -1
+        results.append(int(result))
+        original.append(item)
 
     # Debugging code
     # with open('dataset', 'wb') as f:
@@ -53,5 +59,6 @@ def create_dataset(items, tokens):
     logger.info('Created dataset with %d items', len(dataset))
     return {
         "dataset": dataset,
-        "results": results
+        "results": results,
+        "items": original
     }
