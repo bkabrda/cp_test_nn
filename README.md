@@ -7,7 +7,7 @@ A neural network that can easily be trained to recognize whether a CI fail is a 
 * Clone this repo && cd to its directory
 * Download https://stefw.fedorapeople.org/2017-06-21-2017-07-21-cockpit-test-data.jsonl.gz and https://stefw.fedorapeople.org/2017-06-22-2017-07-22-cockpit-test-data.jsonl.gz
 * Install dependencies: `pip3 install --user -r requirements.txt`
-* Run it: `python3 -m cp_test_nn -t ./2017-06-21-2017-07-21-cockpit-test-data.jsonl -c ./2017-06-22-2017-07-22-cockpit-test-data.jsonl -s serialized`
+* Run it: `python3 -m cp_test_nn -t ./2017-06-21-2017-07-21-cockpit-test-data.jsonl -p ./2017-06-22-2017-07-22-cockpit-test-data.jsonl -s serialized`
 
 ## Output
 

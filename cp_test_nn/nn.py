@@ -14,6 +14,10 @@ class NNWithScaler:
         X = self.scaler.transform(X)
         return self.network.predict(X)
 
+    def predict_proba(self, X):
+        X = self.scaler.transform(X)
+        return self.network.predict_proba(X)
+
     def train(self, data):
         X, y = [], []
         X = data['dataset']
