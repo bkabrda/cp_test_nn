@@ -28,6 +28,8 @@ def predict(nn, tokens, cv_file):
             data["items"][i]["context"],
             data["items"][i].get("url", "")
         ))
+        # TODO: Use the probability prediction to print data about how sure we are this is a flake
+        sys.stderr.write("  {0}\n  {1}\n".format(repr(nn.predict([item])), repr(nn.predict_proba([item]))))
         if y[i] >= 0:
             logger.debug('Predicted item %d to be %d => %s', i + 1, pred,
                          'correct' if pred == y[i] else 'wrong')
